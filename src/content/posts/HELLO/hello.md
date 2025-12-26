@@ -6,3 +6,5 @@ description: 这是第一篇文章
 ---
 
 ## HELLO
+
+庆祝我的新博客建立

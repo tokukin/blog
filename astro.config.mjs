@@ -12,6 +12,7 @@ import remarkNormalizeCodeLang from "./src/utils/remark-normalize-code-lang.js";
 
 // https://astro.build/config
 export default defineConfig({
+  outDir: "../prod/dist",
   vite: {
     plugins: [tailwindcss(), vitePluginSvgr({})],
   },
