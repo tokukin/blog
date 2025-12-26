@@ -1,0 +1,41 @@
+---
+import { getCollection } from "astro:content";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import type { BlogType } from "../../content.config";
+import { siteConfig } from "../../config/site";
+import ArchiveDynamic from "../../components/ArchiveDynamic.astro";
+
+const blogs = await getCollection("posts");
+const years = [
+  ...new Set(
+    blogs.map((blog: BlogType) => new Date(blog.data.date).getFullYear()),
+  ),
+].sort((a, b) => Number(b) - Number(a));
+
+export async function getStaticPaths({
+  paginate,
+}: {
+  paginate: (data: BlogType[], options: { pageSize: number }) => unknown;
+}) {
+  const blogs = await getCollection("posts");
+  blogs.sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
+
+  return paginate(blogs, { pageSize: 6 });
+}
+
+const { page } = Astro.props as { page: { data: BlogType[] } };
+---
+
+<BaseLayout
+  title="归档"
+  description={siteConfig.description}
+  author={siteConfig.author}
+  url={`${siteConfig.url}/archive/${page.currentPage}`}
+>
+  <ArchiveDynamic
+    years={years}
+    page={page}
+    posts={page.data}
+    basePath="/archive"
+  />
+</BaseLayout>
