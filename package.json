@@ -1,9 +1,9 @@
 {
-  "name": "augists-blog",
+  "name": "星宿海",
   "private": true,
   "type": "module",
   "version": "1.0.0",
-  "description": "Augists 的 Astro 博客",
+  "description": "博客",
   "scripts": {
     "dev": "astro dev",
     "build": "astro build",
